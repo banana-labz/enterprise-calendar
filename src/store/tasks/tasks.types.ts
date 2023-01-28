@@ -6,4 +6,8 @@ export interface TasksState {
     labels: TaskLabelDTM[],
   },
   tasks: TaskDTM[],
+  modal: {
+    isModalOpen: boolean,
+    selectedTask: number,
+  },
 }

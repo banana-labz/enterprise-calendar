@@ -12,8 +12,8 @@ export const CalendarMonthSelection = () => {
   return (
     <CalendarMonthSelectionComponent
       currentMonth={currentMonth}
-      nextMonth={controllers.holidays.nextMonth}
-      previousMonth={controllers.holidays.previousMonth}
+      nextMonth={controllers.calendar.nextMonth}
+      previousMonth={controllers.calendar.previousMonth}
     />
   )
 }

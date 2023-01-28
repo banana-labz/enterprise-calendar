@@ -7,7 +7,6 @@ export const HeaderLayout = styled.header`
   align-items: center;
 
   min-height: 64px;
-  margin-bottom: ${props => props.theme.metrics.large}px;
   padding: ${props => props.theme.metrics.large}px;
 
   background-color: ${props => props.theme.palette.blue};

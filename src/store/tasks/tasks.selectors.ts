@@ -1,6 +1,6 @@
 import { createSelector } from "@reduxjs/toolkit"
-import { TaskDTM, TaskLabelDTM } from "models/dtm"
 
+import { TaskDTM, TaskLabelDTM } from "models/dtm"
 import { RootState } from "store"
 
 const getLocalState = (state: RootState) => state.tasks
@@ -44,9 +44,26 @@ const getFilteredTasks = createSelector(
   }
 )
 
+const getIsEditModalOpen = createSelector(
+  getLocalState,
+  (state) => state.modal.isModalOpen,
+)
+
+const getSelectedTask = createSelector(
+  getLocalState,
+  (state) => {
+    if (!state.modal.selectedTask) {
+      return undefined
+    }
+    
+    return state.tasks[state.modal.selectedTask]
+  }
+)
 
 export const tasksSelectors = {
   getSearchParameters,
   getAllTasks,
   getFilteredTasks,
+  getIsEditModalOpen,
+  getSelectedTask,
 }

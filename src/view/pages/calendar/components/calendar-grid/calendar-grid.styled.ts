@@ -3,7 +3,7 @@ import styled from "styled-components"
 export const CalendarGridLayout = styled.div`
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: ${props => props.theme.metrics.small}px;
+  gap: ${props => props.theme.metrics.medium}px;
 `
 
 export const CalendarDayOfWeekLabel = styled.p`
@@ -12,9 +12,35 @@ export const CalendarDayOfWeekLabel = styled.p`
 `
 
 export const CalendarCell = styled.div`
-  height: 128px;
+  display: flex;
+  flex-direction: column;
+  gap: ${props => props.theme.metrics.medium}px;
 
-  background-color: ${props => props.theme.palette.blue};
-  color: white;
+  height: 192px;
   padding: ${props => props.theme.metrics.medium}px;
+
+  border-radius: ${props => props.theme.metrics.small}px;
+
+  background-color: ${props => props.theme.palette.white};
+`
+
+export const CalendarCellHeader = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+`
+
+export const CalendarCellLabelContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 4px;
+
+  > i {
+    font-size: ${props => props.theme.fontSize.medium}px;
+  }
+`
+
+export const CalendarCellLabel = styled.h3`
+  font-weight: ${props => props.theme.fontWeight.semiBold};
 `
