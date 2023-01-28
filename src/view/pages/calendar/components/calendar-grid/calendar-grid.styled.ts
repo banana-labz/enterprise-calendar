@@ -7,10 +7,14 @@ export const CalendarGridLayout = styled.div`
 `
 
 export const CalendarDayOfWeekLabel = styled.p`
+  display: flex;
+  justify-content: center;
 `
 
 export const CalendarCell = styled.div`
+  height: 128px;
+
   background-color: ${props => props.theme.palette.blue};
   color: white;
-  padding: 32px;
+  padding: ${props => props.theme.metrics.medium}px;
 `

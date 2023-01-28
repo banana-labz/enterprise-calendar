@@ -1,5 +1,5 @@
-import { HolidaysController } from "./holidays"
+import { CalendarController } from "./calendar"
 
 export const controllers = {
-  holidays: new HolidaysController(),
+  holidays: new CalendarController(),
 }

@@ -1,17 +1,34 @@
 import React from "react"
-import moment from "moment"
+import moment, { Moment } from "moment"
 
-import { CalendarMonthTitle } from "./calendar-month-selection.styled"
+import { CalendarMonthSelectionLayout, CalendarMonthTitle } from "./calendar-month-selection.styled"
+import { TransparentButton } from "view/components"
 
 interface CalendarMonthSelectionProps {
-
+  currentMonth: Moment,
+  nextMonth: () => void,
+  previousMonth: () => void,
 }
 
-const CalendarMonthSelection = ({ }: CalendarMonthSelectionProps) => {
+const CalendarMonthSelection = ({
+  currentMonth,
+  nextMonth,
+  previousMonth,
+}: CalendarMonthSelectionProps) => {
   return (
-    <CalendarMonthTitle>
-      {moment(Date.now()).format("MMMM")}
-    </CalendarMonthTitle>
+    <CalendarMonthSelectionLayout>
+      <TransparentButton
+        icon={<i className="fa-solid fa-chevron-left" />}
+        onClick={previousMonth}
+      />
+      <CalendarMonthTitle>
+        {currentMonth.format("MMMM, YYYY")}
+      </CalendarMonthTitle>
+      <TransparentButton
+        icon={<i className="fa-solid fa-chevron-right" />}
+        onClick={nextMonth}
+      />
+    </CalendarMonthSelectionLayout>
   )
 }
 

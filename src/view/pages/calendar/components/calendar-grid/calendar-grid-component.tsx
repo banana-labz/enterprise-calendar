@@ -1,5 +1,5 @@
 import React, { useEffect } from "react"
-import moment from "moment"
+import moment, { Moment } from "moment"
 import { AxiosError } from "axios"
 
 import { HolidayDTM } from "models/dtm"
@@ -7,12 +7,14 @@ import { HolidayDTM } from "models/dtm"
 import { CalendarGridLayout, CalendarDayOfWeekLabel, CalendarCell } from "./calendar-grid.styled"
 
 interface CalendarGridProps {
+  selectedMonth: Moment,
   holidayRequestError?: AxiosError,
   holidayList: HolidayDTM[],
   loadHolidays: (year: number, countryCode?: string) => void,
 }
 
 const CalendarGrid = ({
+  selectedMonth,
   holidayList,
   holidayRequestError,
   loadHolidays,
@@ -22,7 +24,7 @@ const CalendarGrid = ({
   }, [])
 
   const weekdays = moment.weekdays()
-  const daysInCurrentMonth = moment(Date.now()).daysInMonth()
+  const daysInCurrentMonth = selectedMonth.daysInMonth()
 
   return (
     <CalendarGridLayout>
@@ -32,14 +34,15 @@ const CalendarGrid = ({
         </CalendarDayOfWeekLabel>
       ))}
       {Array(daysInCurrentMonth).fill(null).map((_, i) => {
-        const holiday = i === 0 ? holidayList[0] : undefined
+        const currentDay = selectedMonth.clone().startOf("month").add(i, "days")
+        const holiday = holidayList.find((holiday) => (
+          Math.abs(holiday.date.diff(currentDay, "days")) < 1
+        ))
 
         return (
           <CalendarCell key={i}>
             {`Day ${i + 1}`}
-            {holiday && (
-              <p>{holiday.name}</p>
-            )}
+            {holiday && (<p>{holiday.name}</p>)}
           </CalendarCell>
         )
       })}
