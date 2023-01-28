@@ -1,1 +1,1 @@
-export { }
+export * from "./holiday.dtm"
