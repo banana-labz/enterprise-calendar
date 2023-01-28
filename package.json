@@ -11,7 +11,7 @@
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.4.3",
     "styled-components": "^5.3.6",
-    "uuidv4": "^6.2.13"
+    "uuidv4": "^5.0.1"
   },
   "devDependencies": {
     "react-scripts": "5.0.1",
