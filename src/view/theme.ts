@@ -38,4 +38,10 @@ export const GlobalStyle = createGlobalStyle`
     list-style: none;
     font-family: "Ubuntu", sans-serif;
   }
+
+  a {
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+  }
 `

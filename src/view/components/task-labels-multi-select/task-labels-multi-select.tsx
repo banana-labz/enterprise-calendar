@@ -13,25 +13,25 @@ import {
 
 interface TaskLabelsMultiSelectProps {
   placeholder?: string,
-  selected: TaskLabelDTM[],
-  options: TaskLabelDTM[],
+  selectedIds: string[],
+  labels: TaskLabelDTM[],
   error?: boolean,
-  onAddOption: (option: TaskLabelDTM) => void,
-  onRemoveOption: (id: string) => void,
+  onAddLabel: (id: string) => void,
+  onRemoveLabel: (id: string) => void,
   onClear: () => void,
 }
 
 export const TaskLabelsMultiSelect = ({
   placeholder = "None",
-  selected,
+  selectedIds,
   error,
-  options,
-  onAddOption,
-  onRemoveOption,
+  labels,
+  onAddLabel,
+  onRemoveLabel,
   onClear,
 }: TaskLabelsMultiSelectProps) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const selectRef = useRef(null);
+  const [isOpen, setIsOpen] = useState(false)
+  const selectRef = useRef(null)
 
   const handleClickDropdown = useCallback(() => {
     setIsOpen((isOpen) => !isOpen)
@@ -42,38 +42,41 @@ export const TaskLabelsMultiSelect = ({
 
   useClickOutside(selectRef, handleCloseDropdown)
 
-  const selectedIds = selected.map((item) => item.id);
-
-  const createClickOptionHandler = (option: TaskLabelDTM) => () => {
-    if (selectedIds.includes(option.id)) {
-      onRemoveOption(option.id)
+  const createClickOptionHandler = (id: string) => () => {
+    if (selectedIds.includes(id)) {
+      onRemoveLabel(id)
       return
     }
 
-    onAddOption(option)
+    onAddLabel(id)
   }
 
   let selectorContent = placeholder
-  if (selected.length) {
-    selectorContent = selected.map((item) => item.description).join(", ")
+  if (selectedIds.length) {
+    selectorContent = (
+      labels
+        .filter((label) => selectedIds.includes(label.id))
+        .map((label) => label.description)
+        .join(", ")
+    )
   }
 
   return (
     <MultiSelectLayout ref={selectRef}> 
       <Selector error={error} onClick={handleClickDropdown}>
         {selectorContent}
-        {!selected.length && <i className="fa-solid fa-caret-down" />}
-        {!!selected.length && <i className="fa-solid fa-xmark" onClick={onClear} />}
+        {!selectedIds.length && <i className="fa-solid fa-caret-down" />}
+        {!!selectedIds.length && <i className="fa-solid fa-xmark" onClick={onClear} />}
       </Selector> 
       <Dropdown visible={isOpen}>
-        {options.map((option) => (
+        {labels.map((label) => (
           <DropdownItem
-            key={option.id}
-            selected={selectedIds.includes(option.id)}
-            onClick={createClickOptionHandler(option)}
+            key={label.id}
+            selected={selectedIds.includes(label.id)}
+            onClick={createClickOptionHandler(label.id)}
           >
-            <Badge color={option.color} />
-            <p>{option.description}</p>
+            <Badge color={label.color} />
+            <p>{label.description || "unnamed"}</p>
           </DropdownItem>
         ))}
       </Dropdown>

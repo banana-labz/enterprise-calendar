@@ -1,21 +1,23 @@
 import styled from "styled-components"
 
+import { Link } from "react-router-dom"
+
 export const HeaderLayout = styled.header`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
 
-  min-height: 64px;
+  height: 64px;
   padding: ${props => props.theme.metrics.large}px;
 
   background-color: ${props => props.theme.palette.blue};
   color: ${props => props.theme.palette.white};
 `
 
-export const HeaderTitle = styled.h2`
+export const HeaderTitle = styled(Link)`
   text-transform: uppercase;
-  font-size: ${props => props.theme.fontSize.extraLarge};
+  font-size: ${props => props.theme.fontSize.extraLarge}px;
   font-weight: ${props => props.theme.fontWeight.semiBold};
 `
 export const HeaderNavigation = styled.nav`

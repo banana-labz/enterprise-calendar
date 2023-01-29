@@ -16,7 +16,7 @@ interface CalendarTaskAddModalProps {
   isOpen: boolean,
   task?: TaskDTM,
   setNewTaskName: (name: string) => void,
-  addNewTaskLabel: (label: TaskLabelDTM) => void,
+  addNewTaskLabel: (id: string) => void,
   removeNewTaskLabel: (id: string) => void,
   clearNewTaskLabels: () => void,
   closeModalFailure: () => void,
@@ -52,10 +52,10 @@ const CalendarTaskAddModal = ({
       />
       <CalendarTaskAddModalLabel>Task labels</CalendarTaskAddModalLabel>
       <TaskLabelsMultiSelect
-        selected={task.labels}
-        options={labels}
-        onAddOption={addNewTaskLabel}
-        onRemoveOption={removeNewTaskLabel}
+        selectedIds={task.labelIds}
+        labels={labels}
+        onAddLabel={addNewTaskLabel}
+        onRemoveLabel={removeNewTaskLabel}
         onClear={clearNewTaskLabels}
       />
       <CalendarTaskAddModalControls>

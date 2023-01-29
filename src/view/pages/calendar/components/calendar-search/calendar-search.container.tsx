@@ -8,13 +8,13 @@ import { CalendarSearchComponent } from "./calendar-search.component"
 
 export const CalendarSearch = () => {
   const searchedText = useSelector(selectors.tasks.getSearchedText)
-  const searchedLabels = useSelector(selectors.tasks.getSearchedLabels)
+  const searchedLabelIds = useSelector(selectors.tasks.getSearchedLabelIds)
   const allTaskLabels = useSelector(selectors.tasks.getLabels)
 
   return (
     <CalendarSearchComponent
       searchedText={searchedText}
-      searchedLabels={searchedLabels}
+      searchedLabelIds={searchedLabelIds}
       allTaskLabels={allTaskLabels}
       setSearchedText={controllers.tasks.setSearchedText}
       addSearchLabel={controllers.tasks.addSearchedLabel}

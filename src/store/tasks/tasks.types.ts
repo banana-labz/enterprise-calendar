@@ -1,12 +1,12 @@
-import { TaskDTM, TaskLabelDTM } from "models/dtm"
-import { Moment } from "moment"
+import { TaskLabelDTM, TaskDTM } from "models/dtm"
 
 export interface TasksState {
+  labels: TaskLabelDTM[],
+  tasks: TaskDTM[],
   search: {
     text: string,
-    labels: TaskLabelDTM[],
+    labelIds: string[],
   },
-  tasks: TaskDTM[],
   editModal: {
     isModalOpen: boolean,
     selectedTask: string,
@@ -14,6 +14,5 @@ export interface TasksState {
   addModal: {
     isModalOpen: boolean,
     newTask?: TaskDTM,
-  }
-  labels: TaskLabelDTM[],
+  },
 }

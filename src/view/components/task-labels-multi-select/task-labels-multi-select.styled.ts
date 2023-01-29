@@ -66,12 +66,7 @@ export const DropdownItem = styled.div<DropdownItemProps>`
   align-items: center;
   gap: ${props => props.theme.metrics.small}px;
 
-  padding: (
-    ${props => props.theme.metrics.small}px
-    ${props => props.theme.metrics.medium}px
-    ${props => props.theme.metrics.small}px
-    ${props => props.theme.metrics.medium}px
-  );
+  padding: ${props => props.theme.metrics.small}px ${props => props.theme.metrics.medium}px ${props => props.theme.metrics.small}px ${props => props.theme.metrics.medium}px;
   background-color: ${props => props.selected ? props.theme.palette.lightBlue : props.theme.palette.white};
 
   cursor: pointer;

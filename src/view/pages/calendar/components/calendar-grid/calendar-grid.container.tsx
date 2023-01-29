@@ -10,6 +10,7 @@ export const CalendarGrid = () => {
   const error = useSelector(selectors.holiday.getError)
   const holidays = useSelector(selectors.holiday.getHolidays)
   const tasks = useSelector(selectors.tasks.getFilteredTasks)
+  const labels = useSelector(selectors.tasks.getLabels)
   const currentMonth = useSelector(selectors.calendar.getCurrentMonth)
 
   return (
@@ -17,7 +18,8 @@ export const CalendarGrid = () => {
       selectedMonth={currentMonth}
       holidayRequestError={error}
       holidayList={holidays}
-      taskList={tasks}
+      tasks={tasks}
+      labels={labels}
       loadHolidays={controllers.calendar.loadHolidays}
       addTask={controllers.tasks.openAddModal}
       removeTask={controllers.tasks.removeTask}

@@ -26,10 +26,10 @@ export const CalendarTask = ({
   return (
     <CalendarTaskLayout>
       <CalendarTaskGroup>
-        <CalendarTaskName>{name}</CalendarTaskName>
         {labels.map((label) => (
           <Badge key={label.id} color={label.color} />
         ))}
+        <CalendarTaskName>{name}</CalendarTaskName>
       </CalendarTaskGroup>
       <CalendarTaskButtonGroup>
         <TransparentButton

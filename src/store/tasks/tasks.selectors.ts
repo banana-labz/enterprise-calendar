@@ -10,9 +10,9 @@ const getSearchedText = createSelector(
   (state) => state.search.text,
 )
 
-const getSearchedLabels = createSelector(
+const getSearchedLabelIds = createSelector(
   getLocalState,
-  (state) => state.search.labels,
+  (state) => state.search.labelIds,
 )
 
 const getAllTasks = createSelector(
@@ -31,13 +31,13 @@ const filterTaskNames = (tasks: TaskDTM[], searchPattern: string) => {
   ))
 }
 
-const filterTaskLabels = (tasks: TaskDTM[], searchedLabels: TaskLabelDTM[]) => {
-  if (!searchedLabels.length) {
+const filterTaskLabels = (tasks: TaskDTM[], searchedLabelIds: string[]) => {
+  if (!searchedLabelIds.length) {
     return tasks
   }
-  const searchedLabelIds = searchedLabels.map((label) => label.id)
+
   return tasks.filter((task) => (
-    task.labels.find((label) => searchedLabelIds.includes(label.id))
+    task.labelIds.find((id) => searchedLabelIds.includes(id))
   ))
 }
 
@@ -46,7 +46,7 @@ const getFilteredTasks = createSelector(
   (state) => {
     let filteredTasks = state.tasks
     filteredTasks = filterTaskNames(filteredTasks, state.search.text)
-    filteredTasks = filterTaskLabels(filteredTasks, state.search.labels)
+    filteredTasks = filterTaskLabels(filteredTasks, state.search.labelIds)
 
     return filteredTasks
   }
@@ -86,7 +86,7 @@ const getLabels = createSelector(
 
 export const tasksSelectors = {
   getSearchedText,
-  getSearchedLabels,
+  getSearchedLabelIds,
   getAllTasks,
   getFilteredTasks,
   getIsEditModalOpen,

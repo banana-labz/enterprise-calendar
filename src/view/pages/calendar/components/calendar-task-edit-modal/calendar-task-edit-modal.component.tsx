@@ -10,7 +10,7 @@ interface CalendarTaskEditModalProps {
   isOpen: boolean,
   task?: TaskDTM,
   setEditedTaskName: (name: string) => void,
-  addEditedTaskLabel: (label: TaskLabelDTM) => void,
+  addEditedTaskLabel: (id: string) => void,
   removeEditedTaskLabel: (id: string) => void,
   clearEditedTaskLabels: () => void,
   closeModal: () => void,
@@ -40,10 +40,10 @@ const CalendarTaskEditModal = ({
       <Input placeholder="go for a walk" value={task.name} onChange={handleChangeName} />
       <CalendarTaskEditModalLabel>Task Labels</CalendarTaskEditModalLabel>
       <TaskLabelsMultiSelect
-        selected={task.labels}
-        options={labels}
-        onAddOption={addEditedTaskLabel}
-        onRemoveOption={removeEditedTaskLabel}
+        selectedIds={task.labelIds}
+        labels={labels}
+        onAddLabel={addEditedTaskLabel}
+        onRemoveLabel={removeEditedTaskLabel}
         onClear={clearEditedTaskLabels}
       />
       <CalendarTaskEditModalReturnButton onClick={closeModal}>Return to calendar</CalendarTaskEditModalReturnButton>

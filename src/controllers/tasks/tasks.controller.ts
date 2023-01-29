@@ -16,8 +16,8 @@ export class TasksController {
     store.dispatch(actions.tasks.setEditedTaskName(name))
   }
 
-  public addEditedTaskLabel = (taskLabel: TaskLabelDTM) => {
-    store.dispatch(actions.tasks.addEditedTaskLabel(taskLabel))
+  public addEditedTaskLabel = (id: string) => {
+    store.dispatch(actions.tasks.addEditedTaskLabel(id))
   }
 
   public removeEditedTaskLabel = (id: string) => {
@@ -40,8 +40,8 @@ export class TasksController {
     store.dispatch(actions.tasks.setNewTaskName(name))
   }
 
-  public addNewTaskLabel = (taskLabel: TaskLabelDTM) => {
-    store.dispatch(actions.tasks.addNewTaskLabel(taskLabel))
+  public addNewTaskLabel = (id: string) => {
+    store.dispatch(actions.tasks.addNewTaskLabel(id))
   }
 
   public removeNewTaskLabel = (id: string) => {
@@ -72,14 +72,37 @@ export class TasksController {
     store.dispatch(actions.tasks.setSearchedText(text))
   }
 
-  public addSearchedLabel = (label: TaskLabelDTM) => {
+  public addSearchedLabel = (label: string) => {
     store.dispatch(actions.tasks.addSearchedLabel(label))
   }
 
   public removeSearchedLabel = (id: string) => {
     store.dispatch(actions.tasks.removeSearchedLabel(id))
   }
+
   public clearSearchedLabels = () => {
     store.dispatch(actions.tasks.clearSearchedLabels())
+  }
+
+  public addLabel = () => {
+    store.dispatch(actions.tasks.addLabel())
+  }
+
+  public removeLabel = (index: number) => {
+    store.dispatch(actions.tasks.removeLabel(index))
+  }
+
+  public setLabelColor = (index: number, color: string) => {
+    store.dispatch(actions.tasks.setLabelColor({
+      index,
+      color,
+    }))
+  }
+
+  public setLabelDescription = (index: number, description: string) => {
+    store.dispatch(actions.tasks.setLabelDescription({
+      index,
+      description,
+    }))
   }
 }

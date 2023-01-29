@@ -8,17 +8,17 @@ import { CalendarSearchLayout } from "./calendar-search.styled"
 
 interface CalendarSearchProps {
   searchedText: string,
-  searchedLabels: TaskLabelDTM[],
+  searchedLabelIds: string[],
   allTaskLabels: TaskLabelDTM[],
   setSearchedText: (text: string) => void,
-  addSearchLabel: (label: TaskLabelDTM) => void,
+  addSearchLabel: (id: string) => void,
   removeSearchLabel: (id: string) => void,
   clearSearchLabels: () => void,
 }
 
 const CalendarSearch = ({
   searchedText,
-  searchedLabels,
+  searchedLabelIds,
   allTaskLabels,
   setSearchedText,
   addSearchLabel,
@@ -32,13 +32,13 @@ const CalendarSearch = ({
   return (
     <CalendarSearchLayout>
       <TaskLabelsMultiSelect
-        selected={searchedLabels}
-        options={allTaskLabels}
-        onAddOption={addSearchLabel}
-        onRemoveOption={removeSearchLabel}
+        selectedIds={searchedLabelIds}
+        labels={allTaskLabels}
+        onAddLabel={addSearchLabel}
+        onRemoveLabel={removeSearchLabel}
         onClear={clearSearchLabels}
       />
-      <Input value={searchedText} onChange={handleChangeSearchedText} />
+      <Input placeholder="search task name" value={searchedText} onChange={handleChangeSearchedText} />
     </CalendarSearchLayout>
   )
 }

@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
-import moment, { Moment } from "moment"
+import { Moment } from "moment"
 import createUniqueId from "uuidv4"
 
 import { TaskDTM, TaskLabelDTM } from "models/dtm"
@@ -17,16 +17,16 @@ const initialState: TasksState = {
     description: "reminder",
   }],
   tasks: [],
+  search: {
+    text: "",
+    labelIds: [],
+  },
   editModal: {
     isModalOpen: false,
     selectedTask: '',
   },
   addModal: {
     isModalOpen: false,
-  },
-  search: {
-    text: "",
-    labels: [],
   },
 }
 
@@ -46,13 +46,13 @@ const tasksSlice = createSlice({
 
       selectedTask.name = action.payload
     },
-    addEditedTaskLabel: (state, action: PayloadAction<TaskLabelDTM>) => {
+    addEditedTaskLabel: (state, action: PayloadAction<string>) => {
       const selectedTask = state.tasks.find((task) => task.id === state.editModal.selectedTask)
       if (!selectedTask) {
         return
       }
 
-      selectedTask.labels.push(action.payload)
+      selectedTask.labelIds.push(action.payload)
     },
     removeEditedTaskLabel: (state, action: PayloadAction<string>) => {
       const selectedTask = state.tasks.find((task) => task.id === state.editModal.selectedTask)
@@ -60,7 +60,7 @@ const tasksSlice = createSlice({
         return
       }
 
-      selectedTask.labels = selectedTask.labels.filter((label) => label.id !== action.payload)
+      selectedTask.labelIds = selectedTask.labelIds.filter((id) => id !== action.payload)
     },
     clearEditedTaskLabels: (state) => {
       const selectedTask = state.tasks.find((task) => task.id === state.editModal.selectedTask)
@@ -68,7 +68,7 @@ const tasksSlice = createSlice({
         return
       }
 
-      selectedTask.labels = []
+      selectedTask.labelIds = []
     },
     closeEditModal: (state) => {
       state.editModal.isModalOpen = false
@@ -81,7 +81,7 @@ const tasksSlice = createSlice({
         id: createUniqueId(),
         date: action.payload,
         name: "",
-        labels: [],
+        labelIds: [],
       }
     },
     setNewTaskName: (state, action: PayloadAction<string>) => {
@@ -92,13 +92,13 @@ const tasksSlice = createSlice({
 
       newTask.name = action.payload
     },
-    addNewTaskLabel: (state, action: PayloadAction<TaskLabelDTM>) => {
+    addNewTaskLabel: (state, action: PayloadAction<string>) => {
       const newTask = state.addModal.newTask
       if (!newTask) {
         return
       }
 
-      newTask.labels.push(action.payload)
+      newTask.labelIds.push(action.payload)
     },
     removeNewTaskLabel: (state, action: PayloadAction<string>) => {
       const newTask = state.addModal.newTask
@@ -106,7 +106,7 @@ const tasksSlice = createSlice({
         return
       }
 
-      newTask.labels = newTask.labels.filter((label) => label.id !== action.payload)
+      newTask.labelIds = newTask.labelIds.filter((id) => id !== action.payload)
     },
     clearNewTaskLabels: (state) => {
       const newTask = state.addModal.newTask
@@ -114,7 +114,7 @@ const tasksSlice = createSlice({
         return
       }
 
-      newTask.labels = []
+      newTask.labelIds = []
     },
     closeAddModal: (state) => {
       state.addModal.isModalOpen = false
@@ -127,26 +127,20 @@ const tasksSlice = createSlice({
     setSearchedText: (state, action: PayloadAction<string>) => {
       state.search.text = action.payload
     },
-    addSearchedLabel: (state, action: PayloadAction<TaskLabelDTM>) => {
-      state.search.labels.push(action.payload)
+    addSearchedLabel: (state, action: PayloadAction<string>) => {
+      state.search.labelIds.push(action.payload)
     },
     removeSearchedLabel: (state, action: PayloadAction<string>) => {
-      state.search.labels = state.search.labels.filter((label) => label.id !== action.payload)
+      state.search.labelIds = state.search.labelIds.filter((id) => id !== action.payload)
     },
     clearSearchedLabels: (state) => {
-      state.search.labels = []
+      state.search.labelIds = []
     },
     // search filters actions
-    setTasks: (state, action: PayloadAction<TaskDTM[]>) => {
-      state.tasks = action.payload
-    },
-    removeTask: (state, action: PayloadAction<string>) => {
-      state.tasks = state.tasks.filter((task) => task.id !== action.payload)
-    },
     addLabel: (state) => {
       state.labels.push({
         id: createUniqueId(),
-        color: "",
+        color: "#FB4343",
         description: "",
       })
     },
@@ -165,6 +159,13 @@ const tasksSlice = createSlice({
     },
     setLabels: (state, action: PayloadAction<TaskLabelDTM[]>) => {
       state.labels = action.payload
+    },
+    // label page actions
+    setTasks: (state, action: PayloadAction<TaskDTM[]>) => {
+      state.tasks = action.payload
+    },
+    removeTask: (state, action: PayloadAction<string>) => {
+      state.tasks = state.tasks.filter((task) => task.id !== action.payload)
     },
     reset: () => (initialState),
   },
