@@ -15,9 +15,13 @@ export const ModalBackground = styled.div`
 `
 
 export const ModalContent = styled.section`
-  min-width: 512px;
+  display: flex;
+  flex-direction: column;
+  gap: ${props => props.theme.metrics.small}px;
+
+  min-width: 320px;
   height: auto;
-  padding: ${props => props.theme.metrics.extraLarge}px;
+  padding: ${props => props.theme.metrics.large}px;
   border-radius: ${props => props.theme.metrics.medium}px;
 
   background-color: ${props => props.theme.palette.white};

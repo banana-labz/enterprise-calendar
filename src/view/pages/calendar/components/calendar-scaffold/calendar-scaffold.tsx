@@ -7,6 +7,7 @@ interface CalendarScaffoldProps {
   calendarMonthSelection: React.ReactNode,
   calendarGrid: React.ReactNode,
   calendarTaskEditModal: React.ReactNode,
+  calendarTaskAddModal: React.ReactNode,
 }
 
 export const CalendarScaffold = ({
@@ -14,9 +15,11 @@ export const CalendarScaffold = ({
   calendarMonthSelection,
   calendarGrid,
   calendarTaskEditModal,
+  calendarTaskAddModal,
 }: CalendarScaffoldProps) => (
   <CalendarLayout>
     {calendarTaskEditModal}
+    {calendarTaskAddModal}
     {calendarSearch}
     {calendarMonthSelection}
     {calendarGrid}

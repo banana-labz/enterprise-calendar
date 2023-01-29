@@ -6,6 +6,7 @@ import {
   CalendarMonthSelection,
   CalendarGrid,
   CalendarTaskEditModal,
+  CalendarTaskAddModal,
 } from "./components"
 
 export const CalendarPage = () => (
@@ -14,5 +15,6 @@ export const CalendarPage = () => (
     calendarMonthSelection={<CalendarMonthSelection />}
     calendarGrid={<CalendarGrid />}
     calendarTaskEditModal={<CalendarTaskEditModal />}
+    calendarTaskAddModal={<CalendarTaskAddModal />}
   />
 )

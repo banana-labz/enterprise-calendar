@@ -18,10 +18,3 @@ export const CalendarTaskListContainer = styled.ul`
   flex-direction: column;
   gap: 4px;
 `
-
-export const CalendarTaskListItem = styled.li`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 4px;
-`

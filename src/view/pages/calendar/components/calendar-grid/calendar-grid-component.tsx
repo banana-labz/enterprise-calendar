@@ -13,7 +13,7 @@ import {
   CalendarCellHeader,
   CalendarCellLabelContainer,
 } from "./calendar-grid.styled"
-import { CalendarHolidayList, CalendarTaskList } from "./components"
+import { CalendarTaskList } from "./components"
 
 interface CalendarGridProps {
   selectedMonth: Moment,
@@ -22,15 +22,18 @@ interface CalendarGridProps {
   taskList: TaskDTM[],
   loadHolidays: (year: number, countryCode?: string) => void,
   addTask: (date: Moment) => void,
+  removeTask: (id: string) => void,
+  editTask: (id: string) => void,
 }
 
 const CalendarGrid = ({
   selectedMonth,
   holidayList,
-  holidayRequestError,
   taskList,
   loadHolidays,
   addTask,
+  removeTask,
+  editTask,
 }: CalendarGridProps) => {
   useEffect(() => {
     loadHolidays(selectedMonth.year())
@@ -38,6 +41,10 @@ const CalendarGrid = ({
 
   const weekdays = moment.weekdays()
   const daysInCurrentMonth = selectedMonth.daysInMonth()
+
+  const createAddTaskHandler = (day: Moment) => () => {
+    addTask(day)
+  }
 
   return (
     <CalendarGridLayout>
@@ -48,7 +55,7 @@ const CalendarGrid = ({
       ))}
       {Array(daysInCurrentMonth).fill(null).map((_, i) => {
         const currentDay = selectedMonth.clone().startOf("month").add(i, "days")
-        const holidays = holidayList.filter((holiday) => Math.abs(holiday.date.diff(currentDay, "days")) < 1)
+        const holiday = holidayList.find((holiday) => Math.abs(holiday.date.diff(currentDay, "days")) < 1)
         const tasks = taskList.filter((task) => Math.abs(task.date.diff(currentDay, "days")) < 1)
 
         return (
@@ -56,19 +63,19 @@ const CalendarGrid = ({
             <CalendarCellHeader>
               <CalendarCellLabelContainer>
                 <CalendarCellLabel>Day {i + 1}</CalendarCellLabel>
-                {!!holidays.length && <i className="fa-regular fa-star" />}
+                {!!holiday && <i className="fa-regular fa-star" />}
               </CalendarCellLabelContainer>
               <TransparentButton
                 icon={<i className="fa-solid fa-plus" />}
-                onClick={() => addTask(currentDay)}
+                onClick={createAddTaskHandler(currentDay)}
               />
             </CalendarCellHeader>
-            <CalendarHolidayList holidayList={holidays} />
-            <CalendarTaskList taskList={tasks} />
-            {/*
-            <i className="fa-solid fa-pen-to-square" />
-            <i className="fa-solid fa-trash" />
-            */}
+            <p>{holiday?.name}</p>
+            <CalendarTaskList
+              taskList={tasks}
+              editTask={editTask}
+              removeTask={removeTask}
+            />
           </CalendarCell>
         )
       })}

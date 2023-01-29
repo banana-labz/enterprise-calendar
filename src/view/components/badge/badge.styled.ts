@@ -5,7 +5,7 @@ interface BadgeProps {
 }
 
 export const Badge = styled.div<BadgeProps>`
-  width: ${props => props.theme.metrics.medium}px;
+  min-width: ${props => props.theme.metrics.medium}px;
   height: ${props => props.theme.metrics.medium}px;
   border-radius: 50%;
 

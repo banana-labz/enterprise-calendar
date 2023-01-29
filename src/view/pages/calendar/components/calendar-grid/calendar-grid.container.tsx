@@ -19,7 +19,9 @@ export const CalendarGrid = () => {
       holidayList={holidays}
       taskList={tasks}
       loadHolidays={controllers.calendar.loadHolidays}
-      addTask={controllers.calendar.addTask}
+      addTask={controllers.tasks.openAddModal}
+      removeTask={controllers.tasks.removeTask}
+      editTask={controllers.tasks.editTask}
     />
   )
 }

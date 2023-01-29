@@ -46,18 +46,34 @@ const getFilteredTasks = createSelector(
 
 const getIsEditModalOpen = createSelector(
   getLocalState,
-  (state) => state.modal.isModalOpen,
+  (state) => state.editModal.isModalOpen,
 )
 
-const getSelectedTask = createSelector(
+const getIsAddModalOpen = createSelector(
+  getLocalState,
+  (state) => state.addModal.isModalOpen,
+)
+
+const getEditModalTask = createSelector(
   getLocalState,
   (state) => {
-    if (!state.modal.selectedTask) {
+    const selectedTask = state.tasks.find((task) => task.id === state.editModal.selectedTask)
+    if (!selectedTask) {
       return undefined
     }
-    
-    return state.tasks[state.modal.selectedTask]
+
+    return selectedTask
   }
+)
+
+const getAddModalTask = createSelector(
+  getLocalState,
+  (state) => state.addModal.newTask,
+)
+
+const getLabels = createSelector(
+  getLocalState,
+  (state) => state.labels,
 )
 
 export const tasksSelectors = {
@@ -65,5 +81,8 @@ export const tasksSelectors = {
   getAllTasks,
   getFilteredTasks,
   getIsEditModalOpen,
-  getSelectedTask,
+  getIsAddModalOpen,
+  getEditModalTask,
+  getAddModalTask,
+  getLabels,
 }

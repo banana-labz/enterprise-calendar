@@ -2,7 +2,7 @@ import styled from "styled-components"
 
 export const CalendarGridLayout = styled.div`
   display: grid;
-  grid-template-columns: repeat(7, 1fr);
+  grid-template-columns: repeat(7, minmax(0, 1fr));
   gap: ${props => props.theme.metrics.medium}px;
 `
 

@@ -1,4 +1,5 @@
 import { TaskDTM, TaskLabelDTM } from "models/dtm"
+import { Moment } from "moment"
 
 export interface TasksState {
   search: {
@@ -6,8 +7,13 @@ export interface TasksState {
     labels: TaskLabelDTM[],
   },
   tasks: TaskDTM[],
-  modal: {
+  editModal: {
     isModalOpen: boolean,
-    selectedTask: number,
+    selectedTask: string,
   },
+  addModal: {
+    isModalOpen: boolean,
+    newTask?: TaskDTM,
+  }
+  labels: TaskLabelDTM[],
 }

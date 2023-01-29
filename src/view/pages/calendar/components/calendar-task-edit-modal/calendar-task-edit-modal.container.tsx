@@ -8,16 +8,16 @@ import { CalendarTaskEditModalComponent } from "./calendar-task-edit-modal.compo
 
 export const CalendarTaskEditModal = () => {
   const isEditModalOpen = useSelector(selectors.tasks.getIsEditModalOpen)
-  const labels = useSelector(selectors.taskLabels.getLabels)
-  const selectedTask = useSelector(selectors.tasks.getSelectedTask)
+  const labels = useSelector(selectors.tasks.getLabels)
+  const editedTask = useSelector(selectors.tasks.getEditModalTask)
 
   return (
     <CalendarTaskEditModalComponent
       labels={labels}
-      selectedTask={selectedTask}
+      selectedTask={editedTask}
       isOpen={isEditModalOpen}
-      closeModalFailure={controllers.calendar.closeModalFailure}
-      closeModalSuccess={controllers.calendar.closeModalSuccess}
+      closeModalFailure={() => {}}
+      closeModalSuccess={() => {}}
     />
   )
 }

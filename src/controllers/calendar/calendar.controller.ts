@@ -1,4 +1,4 @@
-import moment, { Moment } from "moment"
+import moment from "moment"
 import { AxiosError } from "axios"
 
 import { store, actions, selectors } from "store"
@@ -43,22 +43,5 @@ export class CalendarController {
   public resetMonth = () => {
     const currentMonth = moment(Date.now()).startOf("month")
     store.dispatch(actions.calendar.setCurrentMonth(currentMonth))
-  }
-
-  public addTask = (day: Moment) => {
-    store.dispatch(actions.tasks.addTask(day))
-
-    const tasks = selectors.tasks.getAllTasks(store.getState())
-    store.dispatch(actions.tasks.openEditModal(tasks.length - 1))
-  }
-
-  public closeModalFailure = () => {
-    const tasks = selectors.tasks.getAllTasks(store.getState())
-    store.dispatch(actions.tasks.removeTask(tasks.length - 1))
-    store.dispatch(actions.tasks.closeModal())
-  }
-
-  public closeModalSuccess = () => {
-    store.dispatch(actions.tasks.closeModal())
   }
 }
