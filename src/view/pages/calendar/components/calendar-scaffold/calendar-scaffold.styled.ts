@@ -16,4 +16,6 @@ export const CalendarLayout = styled.section`
   display: flex;
   flex-direction: column;
   gap: ${props => props.theme.metrics.medium}px;
+
+  background-color: ${props => props.theme.palette.lightGrey};
 `
