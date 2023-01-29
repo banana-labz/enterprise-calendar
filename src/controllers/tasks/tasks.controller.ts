@@ -66,5 +66,20 @@ export class TasksController {
     }
     store.dispatch(actions.tasks.addTask(task))
     store.dispatch(actions.tasks.closeAddModal())
-  } 
+  }
+
+  public setSearchedText = (text: string) => {
+    store.dispatch(actions.tasks.setSearchedText(text))
+  }
+
+  public addSearchedLabel = (label: TaskLabelDTM) => {
+    store.dispatch(actions.tasks.addSearchedLabel(label))
+  }
+
+  public removeSearchedLabel = (id: string) => {
+    store.dispatch(actions.tasks.removeSearchedLabel(id))
+  }
+  public clearSearchedLabels = () => {
+    store.dispatch(actions.tasks.clearSearchedLabels())
+  }
 }

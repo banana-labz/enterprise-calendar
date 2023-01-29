@@ -7,18 +7,6 @@ import { TaskDTM, TaskLabelDTM } from "models/dtm"
 import { TasksState } from "./tasks.types"
 
 const initialState: TasksState = {
-  search: {
-    text: "",
-    labels: [],
-  },
-  tasks: [],
-  editModal: {
-    isModalOpen: false,
-    selectedTask: '',
-  },
-  addModal: {
-    isModalOpen: false,
-  },
   labels: [{
     id: createUniqueId(),
     color: "red",
@@ -27,7 +15,19 @@ const initialState: TasksState = {
     id: createUniqueId(),
     color: "green",
     description: "reminder",
-  }]
+  }],
+  tasks: [],
+  editModal: {
+    isModalOpen: false,
+    selectedTask: '',
+  },
+  addModal: {
+    isModalOpen: false,
+  },
+  search: {
+    text: "",
+    labels: [],
+  },
 }
 
 const tasksSlice = createSlice({
@@ -74,6 +74,7 @@ const tasksSlice = createSlice({
       state.editModal.isModalOpen = false
       state.editModal.selectedTask = ""
     },
+    // edit modal actions
     openAddModal: (state, action: PayloadAction<Moment>) => {
       state.addModal.isModalOpen = true
       state.addModal.newTask = {
@@ -119,20 +120,28 @@ const tasksSlice = createSlice({
       state.addModal.isModalOpen = false
       state.addModal.newTask = undefined
     },
-    setTasks: (state, action: PayloadAction<TaskDTM[]>) => {
-      state.tasks = action.payload
-    },
     addTask: (state, action: PayloadAction<TaskDTM>) => {
       state.tasks.push(action.payload)
     },
-    removeTask: (state, action: PayloadAction<string>) => {
-      state.tasks = state.tasks.filter((task) => task.id !== action.payload)
-    },
-    setSearchText: (state, action: PayloadAction<string>) => {
+    // add modal actions
+    setSearchedText: (state, action: PayloadAction<string>) => {
       state.search.text = action.payload
     },
-    setSearchLabels: (state, action: PayloadAction<TaskLabelDTM[]>) => {
-      state.search.labels = action.payload
+    addSearchedLabel: (state, action: PayloadAction<TaskLabelDTM>) => {
+      state.search.labels.push(action.payload)
+    },
+    removeSearchedLabel: (state, action: PayloadAction<string>) => {
+      state.search.labels = state.search.labels.filter((label) => label.id !== action.payload)
+    },
+    clearSearchedLabels: (state) => {
+      state.search.labels = []
+    },
+    // search filters actions
+    setTasks: (state, action: PayloadAction<TaskDTM[]>) => {
+      state.tasks = action.payload
+    },
+    removeTask: (state, action: PayloadAction<string>) => {
+      state.tasks = state.tasks.filter((task) => task.id !== action.payload)
     },
     addLabel: (state) => {
       state.labels.push({

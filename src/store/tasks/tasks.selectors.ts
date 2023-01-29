@@ -5,9 +5,14 @@ import { RootState } from "store"
 
 const getLocalState = (state: RootState) => state.tasks
 
-const getSearchParameters = createSelector(
+const getSearchedText = createSelector(
   getLocalState,
-  (state) => state.search,
+  (state) => state.search.text,
+)
+
+const getSearchedLabels = createSelector(
+  getLocalState,
+  (state) => state.search.labels,
 )
 
 const getAllTasks = createSelector(
@@ -27,6 +32,9 @@ const filterTaskNames = (tasks: TaskDTM[], searchPattern: string) => {
 }
 
 const filterTaskLabels = (tasks: TaskDTM[], searchedLabels: TaskLabelDTM[]) => {
+  if (!searchedLabels.length) {
+    return tasks
+  }
   const searchedLabelIds = searchedLabels.map((label) => label.id)
   return tasks.filter((task) => (
     task.labels.find((label) => searchedLabelIds.includes(label.id))
@@ -77,7 +85,8 @@ const getLabels = createSelector(
 )
 
 export const tasksSelectors = {
-  getSearchParameters,
+  getSearchedText,
+  getSearchedLabels,
   getAllTasks,
   getFilteredTasks,
   getIsEditModalOpen,
