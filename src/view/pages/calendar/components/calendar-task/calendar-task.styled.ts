@@ -16,7 +16,7 @@ export const CalendarTaskGroup = styled.div`
   flex-direction: row;
   align-items: center;
   gap: ${props => props.theme.metrics.small}px;
-  
+
   overflow: hidden;
 `
 

@@ -11,9 +11,11 @@ export class NagerService {
 
     let holidays: HolidayDTM[] = []
     try {
-      const response = await this.nagerAPI.get<GetPublicHolidaysResponse>(requestURL)
+      const response = await this.nagerAPI.get<GetPublicHolidaysResponse>(
+        requestURL,
+      )
 
-      holidays = response.data.map((holiday) => ({
+      holidays = response.data.map(holiday => ({
         name: holiday.name,
         localName: holiday.localName,
         date: moment(holiday.date),

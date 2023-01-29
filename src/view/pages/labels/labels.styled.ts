@@ -8,7 +8,7 @@ export const LabelsPageLayout = styled.div`
 `
 
 export const LabelsPageTitle = styled.h2`
-  margin-bottom: ${props => props.theme.metrics.large}px;;
+  margin-bottom: ${props => props.theme.metrics.large}px;
 `
 
 export const LabelsList = styled.ul`

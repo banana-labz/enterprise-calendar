@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from "react"
 import moment, { Moment } from "moment"
 import { AxiosError } from "axios"
 
-import { HolidayDTM, TaskDTM, TaskLabelDTM } from "models/dtm"
+import { HolidayDTM, TaskDTM, LabelDTM } from "models/dtm"
 import { TransparentButton } from "view/components"
 
 import {
@@ -20,17 +20,17 @@ import {
 import { CalendarTask } from "../calendar-task"
 
 interface CalendarGridProps {
-  selectedMonth: Moment,
-  holidayRequestError?: AxiosError,
-  holidayList: HolidayDTM[],
-  tasks: TaskDTM[],
-  labels: TaskLabelDTM[],
-  loadHolidays: (year: number, countryCode?: string) => void,
-  pushTaskOnOther: (other: TaskDTM, taskToPush?: TaskDTM,) => void
+  selectedMonth: Moment
+  holidayRequestError?: AxiosError
+  holidayList: HolidayDTM[]
+  tasks: TaskDTM[]
+  labels: LabelDTM[]
+  loadHolidays: (year: number, countryCode?: string) => void
+  pushTaskOnOther: (other: TaskDTM, taskToPush?: TaskDTM) => void
   pushTaskOnEmptyCell: (emptyCell: Moment, taskToPush?: TaskDTM) => void
-  addTask: (date: Moment) => void,
-  removeTask: (id: string) => void,
-  editTask: (id: string) => void,
+  addTask: (date: Moment) => void
+  removeTask: (id: string) => void
+  editTask: (id: string) => void
 }
 
 const CalendarGrid = ({
@@ -59,10 +59,11 @@ const CalendarGrid = ({
     setDraggedTask(task)
   }
 
-  const createDropOnTaskHandler = (task: TaskDTM) => (event: React.DragEvent) => {
-    event.preventDefault()
-    pushTaskOnOther(task, draggedTask)
-  }
+  const createDropOnTaskHandler =
+    (task: TaskDTM) => (event: React.DragEvent) => {
+      event.preventDefault()
+      pushTaskOnOther(task, draggedTask)
+    }
 
   const createDropOnEmptyCellHandler = (day: Moment) => () => {
     pushTaskOnEmptyCell(day, draggedTask)
@@ -82,52 +83,65 @@ const CalendarGrid = ({
 
   return (
     <CalendarGridLayout>
-      {moment.weekdays().map((weekday) => (
-        <CalendarDayOfWeekLabel key={weekday}>
-          {weekday}
-        </CalendarDayOfWeekLabel>
+      {moment.weekdays().map(weekday => (
+        <CalendarDayOfWeekLabel key={weekday}>{weekday}</CalendarDayOfWeekLabel>
       ))}
-      {Array(selectedMonth.daysInMonth()).fill(null).map((_, i) => {
-        const currentDay = selectedMonth.clone().startOf("month").add(i, "days")
-        const holiday = holidayList.find((holiday) => Math.abs(holiday.date.diff(currentDay, "days")) < 1)
-        const currenyDayTasks = tasks.filter((task) => Math.abs(task.date.diff(currentDay, "days")) < 1)
+      {Array(selectedMonth.daysInMonth())
+        .fill(null)
+        .map((_, i) => {
+          const currentDay = selectedMonth
+            .clone()
+            .startOf("month")
+            .add(i, "days")
+          const holiday = holidayList.find(
+            holiday => Math.abs(holiday.date.diff(currentDay, "days")) < 1,
+          )
+          const currenyDayTasks = tasks.filter(
+            task => Math.abs(task.date.diff(currentDay, "days")) < 1,
+          )
 
-        return (
-          <CalendarCell key={i} onDragOver={handleDragOver} onDrop={createDropOnEmptyCellHandler(currentDay)}>
-            <CalendarCellHeader>
-              <CalendarCellLabelContainer>
-                <CalendarCellLabel>Day {i + 1}</CalendarCellLabel>
-                {!!holiday && <i className="fa-regular fa-star" />}
-              </CalendarCellLabelContainer>
-              <TransparentButton
-                icon={<i className="fa-solid fa-plus" />}
-                onClick={createAddTaskHandler(currentDay)}
-              />
-            </CalendarCellHeader>
-            <p>{holiday?.name}</p>
-            {currenyDayTasks.length > 0 && (
-              <CalendarTaskListLayout>
-                <CalendarTaskListTitle>Tasks</CalendarTaskListTitle>
-                <CalendarTaskListContainer>
-                  {currenyDayTasks.map((task) => (
-                    <CalendarTask
-                      key={task.id}
-                      name={task.name}
-                      draggable
-                      labels={labels.filter((label) => task.labelIds.includes(label.id))}
-                      editTask={createEditTaskHandler(task.id)}
-                      deleteTask={createDeleteTaskHandler(task.id)}
-                      onDragOver={handleDragOver}
-                      onDragStart={createDragStartHandler(task)}
-                      onDrop={createDropOnTaskHandler(task)}
-                    />
-                  ))}
-                </CalendarTaskListContainer>
-              </CalendarTaskListLayout>
-            )}
-          </CalendarCell>
-        )
-      })}
+          return (
+            <CalendarCell
+              key={i}
+              onDragOver={handleDragOver}
+              onDrop={createDropOnEmptyCellHandler(currentDay)}
+            >
+              <CalendarCellHeader>
+                <CalendarCellLabelContainer>
+                  <CalendarCellLabel>Day {i + 1}</CalendarCellLabel>
+                  {!!holiday && <i className="fa-regular fa-star" />}
+                </CalendarCellLabelContainer>
+                <TransparentButton
+                  icon={<i className="fa-solid fa-plus" />}
+                  onClick={createAddTaskHandler(currentDay)}
+                />
+              </CalendarCellHeader>
+              <p>{holiday?.name}</p>
+              {currenyDayTasks.length > 0 && (
+                <CalendarTaskListLayout>
+                  <CalendarTaskListTitle>Tasks</CalendarTaskListTitle>
+                  <CalendarTaskListContainer>
+                    {currenyDayTasks.map(task => (
+                      <CalendarTask
+                        key={task.id}
+                        name={task.name}
+                        draggable
+                        labels={labels.filter(label =>
+                          task.labelIds.includes(label.id),
+                        )}
+                        editTask={createEditTaskHandler(task.id)}
+                        deleteTask={createDeleteTaskHandler(task.id)}
+                        onDragOver={handleDragOver}
+                        onDragStart={createDragStartHandler(task)}
+                        onDrop={createDropOnTaskHandler(task)}
+                      />
+                    ))}
+                  </CalendarTaskListContainer>
+                </CalendarTaskListLayout>
+              )}
+            </CalendarCell>
+          )
+        })}
     </CalendarGridLayout>
   )
 }

@@ -9,7 +9,7 @@ import { CalendarPage, LabelsPage } from "./pages"
 
 export const App = () => (
   <ThemeProvider theme={defaultTheme}>
-  <GlobalStyle />
+    <GlobalStyle />
     <BrowserRouter>
       <Header />
       <Routes>

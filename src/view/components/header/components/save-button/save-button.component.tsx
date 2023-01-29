@@ -3,7 +3,7 @@ import React, { useCallback } from "react"
 import { TransparentButton } from "view/components"
 
 interface SaveButtonProps {
-  data: string,
+  data: string
 }
 
 const downloadObjectAsJSON = (jsonString: string) => {

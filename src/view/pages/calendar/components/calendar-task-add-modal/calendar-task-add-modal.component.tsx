@@ -1,6 +1,6 @@
 import React, { useCallback } from "react"
 
-import { TaskDTM, TaskLabelDTM } from "models/dtm"
+import { TaskDTM, LabelDTM } from "models/dtm"
 import {
   TaskLabelsMultiSelect,
   FilledButton,
@@ -9,18 +9,21 @@ import {
   OutlinedButton,
 } from "view/components"
 
-import { CalendarTaskAddModalControls, CalendarTaskAddModalLabel } from "./calendar-task-add-modal.styled"
+import {
+  CalendarTaskAddModalControls,
+  CalendarTaskAddModalLabel,
+} from "./calendar-task-add-modal.styled"
 
 interface CalendarTaskAddModalProps {
-  labels: TaskLabelDTM[],
-  isOpen: boolean,
-  task?: TaskDTM,
-  setNewTaskName: (name: string) => void,
-  addNewTaskLabel: (id: string) => void,
-  removeNewTaskLabel: (id: string) => void,
-  clearNewTaskLabels: () => void,
-  closeModalFailure: () => void,
-  closeModalSuccess: () => void,
+  labels: LabelDTM[]
+  isOpen: boolean
+  task?: TaskDTM
+  setNewTaskName: (name: string) => void
+  addNewTaskLabel: (id: string) => void
+  removeNewTaskLabel: (id: string) => void
+  clearNewTaskLabels: () => void
+  closeModalFailure: () => void
+  closeModalSuccess: () => void
 }
 
 const CalendarTaskAddModal = ({
@@ -34,9 +37,12 @@ const CalendarTaskAddModal = ({
   closeModalFailure,
   closeModalSuccess,
 }: CalendarTaskAddModalProps) => {
-  const handleChangeName = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-    setNewTaskName(event.target.value)
-  }, [])
+  const handleChangeName = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      setNewTaskName(event.target.value)
+    },
+    [],
+  )
 
   if (!isOpen || !task) {
     return null

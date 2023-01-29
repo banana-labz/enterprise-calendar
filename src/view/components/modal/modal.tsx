@@ -7,16 +7,12 @@ interface ModalProps {
   children: React.ReactNode | React.ReactNode[]
 }
 
-export const Modal = ({
-  title,
-  children,
-}: ModalProps) => {
-
+export const Modal = ({ title, children }: ModalProps) => {
   return (
     <ModalBackground>
       <ModalContent>
         {typeof title === "string" ? <ModalTitle>{title}</ModalTitle> : title}
-        {children}        
+        {children}
       </ModalContent>
     </ModalBackground>
   )

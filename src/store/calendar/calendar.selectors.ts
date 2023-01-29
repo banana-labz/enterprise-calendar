@@ -6,23 +6,14 @@ const getLocalState = (state: RootState) => state.calendar
 
 const getCurrentMonth = createSelector(
   getLocalState,
-  (state) => state.currentMonth,
+  state => state.currentMonth,
 )
 
-const getLoading = createSelector(
-  getLocalState,
-  (state) => state.isLoading,
-)
+const getLoading = createSelector(getLocalState, state => state.isLoading)
 
-const getError = createSelector(
-  getLocalState,
-  (state) => state.error,
-)
+const getError = createSelector(getLocalState, state => state.error)
 
-const getHolidays = createSelector(
-  getLocalState,
-  (state) => state.holidays,
-)
+const getHolidays = createSelector(getLocalState, state => state.holidays)
 
 export const calendarSelectors = {
   getCurrentMonth,

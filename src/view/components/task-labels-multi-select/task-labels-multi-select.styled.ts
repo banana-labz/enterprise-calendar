@@ -16,16 +16,21 @@ export const Selector = styled.button<SelectorProps>`
   justify-content: space-between;
   width: 100%;
   height: 100%;
-  padding: ${props => props.theme.metrics.small}px ${props => props.theme.metrics.small * 3}px;
+  padding: ${props => props.theme.metrics.small}px
+    ${props => props.theme.metrics.small * 3}px;
 
-  border: 1px solid ${props => props.error ? props.theme.palette.red : props.theme.palette.lightGrey};
+  border: 1px solid
+    ${props =>
+      props.error ? props.theme.palette.red : props.theme.palette.lightGrey};
   border-radius: ${props => props.theme.metrics.small}px;
   background-color: ${props => props.theme.palette.white};
 
   cursor: pointer;
 
   &:focus {
-    outline: 1px solid ${props => props.error ? props.theme.palette.red : props.theme.palette.grey};
+    outline: 1px solid
+      ${props =>
+        props.error ? props.theme.palette.red : props.theme.palette.grey};
   }
 
   > i {
@@ -53,7 +58,7 @@ export const Dropdown = styled.div<DropdownProps>`
   border-radius: ${props => props.theme.metrics.small}px;
   background-color: ${props => props.theme.palette.white};
 
-  visibility: ${({ visible }) => visible ? 'visible' : 'hidden'};
+  visibility: ${({ visible }) => (visible ? "visible" : "hidden")};
 `
 
 interface DropdownItemProps {
@@ -66,8 +71,12 @@ export const DropdownItem = styled.div<DropdownItemProps>`
   align-items: center;
   gap: ${props => props.theme.metrics.small}px;
 
-  padding: ${props => props.theme.metrics.small}px ${props => props.theme.metrics.medium}px ${props => props.theme.metrics.small}px ${props => props.theme.metrics.medium}px;
-  background-color: ${props => props.selected ? props.theme.palette.lightBlue : props.theme.palette.white};
+  padding: ${props => props.theme.metrics.small}px
+    ${props => props.theme.metrics.medium}px
+    ${props => props.theme.metrics.small}px
+    ${props => props.theme.metrics.medium}px;
+  background-color: ${props =>
+    props.selected ? props.theme.palette.lightBlue : props.theme.palette.white};
 
   cursor: pointer;
 `

@@ -7,9 +7,7 @@ import { HeaderLayout, HeaderTitle, HeaderNavigation } from "./header.styled"
 export const Header = () => {
   return (
     <HeaderLayout>
-      <HeaderTitle to="calendar">
-        Calendar
-      </HeaderTitle>
+      <HeaderTitle to="calendar">Calendar</HeaderTitle>
       <HeaderNavigation>
         <ScreenshotButton />
         <LoadButton />

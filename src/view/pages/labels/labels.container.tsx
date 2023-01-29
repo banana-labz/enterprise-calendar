@@ -1,7 +1,7 @@
-import { controllers } from "controllers"
 import React from "react"
 import { useSelector } from "react-redux"
 
+import { controllers } from "controllers"
 import { selectors } from "store"
 
 import { LabelsPageComponent } from "./labels.component"

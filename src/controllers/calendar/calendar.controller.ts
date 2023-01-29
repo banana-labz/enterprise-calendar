@@ -1,9 +1,9 @@
 import moment from "moment"
 import { AxiosError } from "axios"
 
+import { HolidayDTM } from "models/dtm"
 import { store, actions, selectors } from "store"
 import { services } from "services"
-import { HolidayDTM } from "models/dtm"
 
 export class CalendarController {
   public loadHolidays = async (year: number, countryCode?: string) => {

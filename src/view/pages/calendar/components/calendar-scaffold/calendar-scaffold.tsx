@@ -3,11 +3,11 @@ import React from "react"
 import { CalendarLayout, CalendarPageLayout } from "./calendar-scaffold.styled"
 
 interface CalendarScaffoldProps {
-  calendarSearch: React.ReactNode,
-  calendarMonthSelection: React.ReactNode,
-  calendarGrid: React.ReactNode,
-  calendarTaskEditModal: React.ReactNode,
-  calendarTaskAddModal: React.ReactNode,
+  calendarSearch: React.ReactNode
+  calendarMonthSelection: React.ReactNode
+  calendarGrid: React.ReactNode
+  calendarTaskEditModal: React.ReactNode
+  calendarTaskAddModal: React.ReactNode
 }
 
 export const CalendarScaffold = ({

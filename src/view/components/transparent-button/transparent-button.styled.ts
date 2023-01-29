@@ -5,7 +5,7 @@ export const ButtonLayout = styled.button`
   justify-content: center;
   align-items: center;
   gap: ${props => props.theme.metrics.small}px;
-  
+
   padding: ${props => props.theme.metrics.small}px;
 
   border: 0;

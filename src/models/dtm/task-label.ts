@@ -1,5 +1,5 @@
-export interface TaskLabelDTM {
-  id: string,
-  color: string,
-  description: string,
+export interface LabelDTM {
+  id: string
+  color: string
+  description: string
 }

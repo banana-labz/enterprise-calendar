@@ -1,6 +1,6 @@
 import React from "react"
 
-import { TaskLabelDTM } from "models/dtm"
+import { LabelDTM } from "models/dtm"
 import { Badge, TransparentButton } from "view/components"
 
 import {
@@ -11,10 +11,10 @@ import {
 } from "./calendar-task.styled"
 
 interface CalendarTaskProps extends React.HTMLAttributes<HTMLLIElement> {
-  name: string,
-  labels: TaskLabelDTM[],
-  editTask: () => void,
-  deleteTask: () => void,
+  name: string
+  labels: LabelDTM[]
+  editTask: () => void
+  deleteTask: () => void
 }
 
 export const CalendarTask = ({
@@ -27,7 +27,7 @@ export const CalendarTask = ({
   return (
     <CalendarTaskLayout {...other}>
       <CalendarTaskGroup>
-        {labels.map((label) => (
+        {labels.map(label => (
           <Badge key={label.id} color={label.color} />
         ))}
         <CalendarTaskName>{name}</CalendarTaskName>

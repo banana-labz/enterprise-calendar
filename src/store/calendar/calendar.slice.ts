@@ -29,7 +29,7 @@ const calendarSlice = createSlice({
     setHolidays: (state, action: PayloadAction<HolidayDTM[]>) => {
       state.holidays = action.payload
     },
-    reset: () => (initialState),
+    reset: () => initialState,
   },
 })
 

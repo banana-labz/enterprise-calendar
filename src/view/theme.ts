@@ -26,7 +26,7 @@ export const defaultTheme: DefaultTheme = {
     black: "#000000",
     lightGrey: "#ECECEC",
     grey: "#808080",
-    red: "#FF0000"
+    red: "#FF0000",
   },
 }
 

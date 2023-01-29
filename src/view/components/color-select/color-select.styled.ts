@@ -1,9 +1,7 @@
 import styled from "styled-components"
-
 import { SketchPicker } from "react-color"
 
-export const ColorSelectLayout = styled.div`
-`
+export const ColorSelectLayout = styled.div``
 
 export const ColorPicker = styled(SketchPicker)`
   position: absolute;

@@ -1,19 +1,18 @@
-
 import React, { useCallback } from "react"
 
-import { TaskLabelDTM } from "models/dtm"
+import { LabelDTM } from "models/dtm"
 import { Input, TaskLabelsMultiSelect } from "view/components"
 
 import { CalendarSearchLayout } from "./calendar-search.styled"
 
 interface CalendarSearchProps {
-  searchedText: string,
-  searchedLabelIds: string[],
-  allTaskLabels: TaskLabelDTM[],
-  setSearchedText: (text: string) => void,
-  addSearchLabel: (id: string) => void,
-  removeSearchLabel: (id: string) => void,
-  clearSearchLabels: () => void,
+  searchedText: string
+  searchedLabelIds: string[]
+  allTaskLabels: LabelDTM[]
+  setSearchedText: (text: string) => void
+  addSearchLabel: (id: string) => void
+  removeSearchLabel: (id: string) => void
+  clearSearchLabels: () => void
 }
 
 const CalendarSearch = ({
@@ -25,9 +24,12 @@ const CalendarSearch = ({
   removeSearchLabel,
   clearSearchLabels,
 }: CalendarSearchProps) => {
-  const handleChangeSearchedText = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchedText(event.target.value)
-  }, [])
+  const handleChangeSearchedText = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      setSearchedText(event.target.value)
+    },
+    [],
+  )
 
   return (
     <CalendarSearchLayout>
@@ -38,7 +40,11 @@ const CalendarSearch = ({
         onRemoveLabel={removeSearchLabel}
         onClear={clearSearchLabels}
       />
-      <Input placeholder="search task name" value={searchedText} onChange={handleChangeSearchedText} />
+      <Input
+        placeholder="search task name"
+        value={searchedText}
+        onChange={handleChangeSearchedText}
+      />
     </CalendarSearchLayout>
   )
 }

@@ -1,13 +1,17 @@
 import React from "react"
-import moment, { Moment } from "moment"
+import { Moment } from "moment"
 
-import { CalendarMonthSelectionLayout, CalendarMonthTitle } from "./calendar-month-selection.styled"
 import { TransparentButton } from "view/components"
 
+import {
+  CalendarMonthSelectionLayout,
+  CalendarMonthTitle,
+} from "./calendar-month-selection.styled"
+
 interface CalendarMonthSelectionProps {
-  currentMonth: Moment,
-  nextMonth: () => void,
-  previousMonth: () => void,
+  currentMonth: Moment
+  nextMonth: () => void
+  previousMonth: () => void
 }
 
 const CalendarMonthSelection = ({

@@ -3,10 +3,10 @@ import React from "react"
 import { ButtonLayout, Text } from "./transparent-button.styled"
 
 interface TransparentButtonProps {
-  icon?: React.ReactNode,
-  text?: React.ReactNode | string,
-  onClick?: () => void,
-  onBlur?: () => void,
+  icon?: React.ReactNode
+  text?: React.ReactNode | string
+  onClick?: () => void
+  onBlur?: () => void
 }
 
 export const TransparentButton = ({

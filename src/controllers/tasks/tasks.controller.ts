@@ -1,6 +1,6 @@
 import moment, { Moment } from "moment"
 
-import { TaskDTM, TaskLabelDTM } from "models/dtm"
+import { TaskDTM, LabelDTM } from "models/dtm"
 import { store, actions, selectors } from "store"
 
 export class TasksController {
@@ -93,17 +93,21 @@ export class TasksController {
   }
 
   public setLabelColor = (index: number, color: string) => {
-    store.dispatch(actions.tasks.setLabelColor({
-      index,
-      color,
-    }))
+    store.dispatch(
+      actions.tasks.setLabelColor({
+        index,
+        color,
+      }),
+    )
   }
 
   public setLabelDescription = (index: number, description: string) => {
-    store.dispatch(actions.tasks.setLabelDescription({
-      index,
-      description,
-    }))
+    store.dispatch(
+      actions.tasks.setLabelDescription({
+        index,
+        description,
+      }),
+    )
   }
 
   public pushTaskOnOther = (other: TaskDTM, taskToPush?: TaskDTM) => {
@@ -111,10 +115,12 @@ export class TasksController {
       return
     }
 
-    store.dispatch(actions.tasks.pushTaskAfterOther({
-      taskToPush,
-      other,
-    }))
+    store.dispatch(
+      actions.tasks.pushTaskAfterOther({
+        taskToPush,
+        other,
+      }),
+    )
   }
 
   public pushTaskOnEmptyCell = (emptyCell: Moment, taskToPush?: TaskDTM) => {
@@ -122,15 +128,17 @@ export class TasksController {
       return
     }
 
-    store.dispatch(actions.tasks.pushTaskOnEmptyCell({
-      taskToPush,
-      emptyCell,
-    }))
+    store.dispatch(
+      actions.tasks.pushTaskOnEmptyCell({
+        taskToPush,
+        emptyCell,
+      }),
+    )
   }
 
   public loadJSON = (json: any) => {
     let resultTasks: TaskDTM[] = []
-    let resultLabels: TaskLabelDTM[] = []
+    let resultLabels: LabelDTM[] = []
     try {
       const { tasks, labels } = json
       resultTasks = tasks.map((task: any) => ({

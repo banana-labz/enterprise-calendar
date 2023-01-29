@@ -1,18 +1,18 @@
-import { TaskLabelDTM, TaskDTM } from "models/dtm"
+import { LabelDTM, TaskDTM } from "models/dtm"
 
 export interface TasksState {
-  labels: TaskLabelDTM[],
-  tasks: TaskDTM[],
+  labels: LabelDTM[]
+  tasks: TaskDTM[]
   search: {
-    text: string,
-    labelIds: string[],
-  },
+    text: string
+    labelIds: string[]
+  }
   editModal: {
-    isModalOpen: boolean,
-    selectedTask: string,
-  },
+    isModalOpen: boolean
+    selectedTask: string
+  }
   addModal: {
-    isModalOpen: boolean,
-    newTask?: TaskDTM,
-  },
+    isModalOpen: boolean
+    newTask?: TaskDTM
+  }
 }
