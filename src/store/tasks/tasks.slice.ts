@@ -164,7 +164,7 @@ const tasksSlice = createSlice({
       })
     },
     removeLabel: (state, action: PayloadAction<number>) => {
-      state.labels.splice(action.payload)
+      state.labels = state.labels.filter((_, i) => i !== action.payload)
     },
     setLabelColor: (
       state,
