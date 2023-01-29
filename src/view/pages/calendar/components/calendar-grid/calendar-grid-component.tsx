@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useCallback, useEffect, useState } from "react"
 import moment, { Moment } from "moment"
 import { AxiosError } from "axios"
 
@@ -51,35 +51,22 @@ const CalendarGrid = ({
     loadHolidays(selectedMonth.year())
   }, [selectedMonth.year()])
 
-  const weekdays = moment.weekdays()
-  const daysInCurrentMonth = selectedMonth.daysInMonth()
-
-  const createDragOverHandler = () => (event: React.DragEvent) => {
+  const handleDragOver = useCallback((event: React.DragEvent) => {
     event.preventDefault()
-  }
+  }, [])
 
-  const createDragStartHandler = (date: Moment, task: TaskDTM) => (event: React.DragEvent) => {
+  const createDragStartHandler = (task: TaskDTM) => () => {
     setDraggedTask(task)
   }
 
-  const createDragLeaveHandler = () => (event: React.DragEvent) => {
-
-  }
-
-  const createDragEndHandler = () => (event: React.DragEvent) => {
-
-  }
-
-  const createDropOnTaskHandler = (date: Moment, task: TaskDTM) => (event: React.DragEvent) => {
+  const createDropOnTaskHandler = (task: TaskDTM) => (event: React.DragEvent) => {
     event.preventDefault()
-
     pushTaskOnOther(task, draggedTask)
   }
 
   const createDropOnEmptyCellHandler = (day: Moment) => () => {
     pushTaskOnEmptyCell(day, draggedTask)
   }
-
 
   const createAddTaskHandler = (day: Moment) => () => {
     addTask(day)
@@ -95,18 +82,18 @@ const CalendarGrid = ({
 
   return (
     <CalendarGridLayout>
-      {weekdays.map((weekday) => (
+      {moment.weekdays().map((weekday) => (
         <CalendarDayOfWeekLabel key={weekday}>
           {weekday}
         </CalendarDayOfWeekLabel>
       ))}
-      {Array(daysInCurrentMonth).fill(null).map((_, i) => {
+      {Array(selectedMonth.daysInMonth()).fill(null).map((_, i) => {
         const currentDay = selectedMonth.clone().startOf("month").add(i, "days")
         const holiday = holidayList.find((holiday) => Math.abs(holiday.date.diff(currentDay, "days")) < 1)
         const currenyDayTasks = tasks.filter((task) => Math.abs(task.date.diff(currentDay, "days")) < 1)
 
         return (
-          <CalendarCell key={i} onDragOver={createDragOverHandler()} onDrop={createDropOnEmptyCellHandler(currentDay)}>
+          <CalendarCell key={i} onDragOver={handleDragOver} onDrop={createDropOnEmptyCellHandler(currentDay)}>
             <CalendarCellHeader>
               <CalendarCellLabelContainer>
                 <CalendarCellLabel>Day {i + 1}</CalendarCellLabel>
@@ -118,26 +105,26 @@ const CalendarGrid = ({
               />
             </CalendarCellHeader>
             <p>{holiday?.name}</p>
-            <CalendarTaskListLayout>
-              <CalendarTaskListTitle>Tasks</CalendarTaskListTitle>
-              <CalendarTaskListContainer>
-                {currenyDayTasks.map((task) => (
-                  <CalendarTask
-                    key={task.id}
-                    name={task.name}
-                    draggable
-                    labels={labels.filter((label) => task.labelIds.includes(label.id))}
-                    editTask={createEditTaskHandler(task.id)}
-                    deleteTask={createDeleteTaskHandler(task.id)}
-                    onDragOver={createDragOverHandler()}
-                    onDragStart={createDragStartHandler(currentDay, task)}
-                    onDragLeave={createDragLeaveHandler()}
-                    onDragEnd={createDragEndHandler()}
-                    onDrop={createDropOnTaskHandler(currentDay, task)}
-                  />
-                ))}
-              </CalendarTaskListContainer>
-            </CalendarTaskListLayout>
+            {currenyDayTasks.length > 0 && (
+              <CalendarTaskListLayout>
+                <CalendarTaskListTitle>Tasks</CalendarTaskListTitle>
+                <CalendarTaskListContainer>
+                  {currenyDayTasks.map((task) => (
+                    <CalendarTask
+                      key={task.id}
+                      name={task.name}
+                      draggable
+                      labels={labels.filter((label) => task.labelIds.includes(label.id))}
+                      editTask={createEditTaskHandler(task.id)}
+                      deleteTask={createDeleteTaskHandler(task.id)}
+                      onDragOver={handleDragOver}
+                      onDragStart={createDragStartHandler(task)}
+                      onDrop={createDropOnTaskHandler(task)}
+                    />
+                  ))}
+                </CalendarTaskListContainer>
+              </CalendarTaskListLayout>
+            )}
           </CalendarCell>
         )
       })}

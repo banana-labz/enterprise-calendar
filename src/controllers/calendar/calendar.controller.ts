@@ -7,23 +7,23 @@ import { HolidayDTM } from "models/dtm"
 
 export class CalendarController {
   public loadHolidays = async (year: number, countryCode?: string) => {
-    store.dispatch(actions.holiday.setLoading(true))
+    store.dispatch(actions.calendar.setLoading(true))
 
     let holidays: HolidayDTM[] = []
     try {
       holidays = await services.nager.getHolidays(year, countryCode)
     } catch (error) {
       if (error instanceof AxiosError) {
-        store.dispatch(actions.holiday.setError(error))
-        store.dispatch(actions.holiday.setLoading(false))
+        store.dispatch(actions.calendar.setError(error))
+        store.dispatch(actions.calendar.setLoading(false))
         return
       }
 
       console.error(error)
     }
 
-    store.dispatch(actions.holiday.setHolidays(holidays))
-    store.dispatch(actions.holiday.setLoading(false))
+    store.dispatch(actions.calendar.setHolidays(holidays))
+    store.dispatch(actions.calendar.setLoading(false))
   }
 
   public nextMonth = () => {

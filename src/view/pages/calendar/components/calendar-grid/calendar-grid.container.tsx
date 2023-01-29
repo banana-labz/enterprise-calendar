@@ -7,8 +7,8 @@ import { controllers } from "controllers"
 import { CalendarGridComponent } from "./calendar-grid-component"
 
 export const CalendarGrid = () => {
-  const error = useSelector(selectors.holiday.getError)
-  const holidays = useSelector(selectors.holiday.getHolidays)
+  const error = useSelector(selectors.calendar.getError)
+  const holidays = useSelector(selectors.calendar.getHolidays)
   const tasks = useSelector(selectors.tasks.getFilteredTasks)
   const labels = useSelector(selectors.tasks.getLabels)
   const currentMonth = useSelector(selectors.calendar.getCurrentMonth)

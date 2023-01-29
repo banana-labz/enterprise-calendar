@@ -9,6 +9,24 @@ const getCurrentMonth = createSelector(
   (state) => state.currentMonth,
 )
 
+const getLoading = createSelector(
+  getLocalState,
+  (state) => state.isLoading,
+)
+
+const getError = createSelector(
+  getLocalState,
+  (state) => state.error,
+)
+
+const getHolidays = createSelector(
+  getLocalState,
+  (state) => state.holidays,
+)
+
 export const calendarSelectors = {
   getCurrentMonth,
+  getLoading,
+  getError,
+  getHolidays,
 }
