@@ -2,6 +2,7 @@
   "name": "calendar",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://thxrion.github.io/calendar/",
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.1",
     "axios": "^1.2.5",
