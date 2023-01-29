@@ -1,5 +1,6 @@
-import { TaskLabelDTM } from "models/dtm"
 import moment, { Moment } from "moment"
+
+import { TaskDTM } from "models/dtm"
 
 import { store, actions, selectors } from "store"
 
@@ -103,6 +104,28 @@ export class TasksController {
     store.dispatch(actions.tasks.setLabelDescription({
       index,
       description,
+    }))
+  }
+
+  public pushTaskOnOther = (other: TaskDTM, taskToPush?: TaskDTM) => {
+    if (!taskToPush) {
+      return
+    }
+
+    store.dispatch(actions.tasks.pushTaskAfterOther({
+      taskToPush,
+      other,
+    }))
+  }
+
+  public pushTaskOnEmptyCell = (emptyCell: Moment, taskToPush?: TaskDTM) => {
+    if (!taskToPush || taskToPush.date.isSame(emptyCell, "day")) {
+      return
+    }
+
+    store.dispatch(actions.tasks.pushTaskOnEmptyCell({
+      taskToPush,
+      emptyCell,
     }))
   }
 }

@@ -5,6 +5,10 @@ export const CalendarTaskLayout = styled.li`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+
+  padding: ${props => props.theme.metrics.small}px;
+  border-radius: ${props => props.theme.metrics.small}px;
+  border: 1px solid ${props => props.theme.palette.lightGrey};
 `
 
 export const CalendarTaskGroup = styled.div`
@@ -19,7 +23,6 @@ export const CalendarTaskGroup = styled.div`
 export const CalendarTaskButtonGroup = styled(CalendarTaskGroup)`
   flex-shrink: 0;
   gap: 0;
-  padding-right: ${props => props.theme.metrics.medium}px;
 `
 
 export const CalendarTaskName = styled.p`

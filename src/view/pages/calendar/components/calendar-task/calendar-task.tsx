@@ -10,7 +10,7 @@ import {
   CalendarTaskName,
 } from "./calendar-task.styled"
 
-interface CalendarTaskProps {
+interface CalendarTaskProps extends React.HTMLAttributes<HTMLLIElement> {
   name: string,
   labels: TaskLabelDTM[],
   editTask: () => void,
@@ -22,9 +22,10 @@ export const CalendarTask = ({
   labels,
   editTask,
   deleteTask,
+  ...other
 }: CalendarTaskProps) => {
   return (
-    <CalendarTaskLayout>
+    <CalendarTaskLayout {...other}>
       <CalendarTaskGroup>
         {labels.map((label) => (
           <Badge key={label.id} color={label.color} />

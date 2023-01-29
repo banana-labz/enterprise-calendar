@@ -145,9 +145,7 @@ const tasksSlice = createSlice({
       })
     },
     removeLabel: (state, action: PayloadAction<number>) => {
-      state.labels = state.labels.filter((_, i) => (
-        i !== action.payload
-      ))
+      state.labels.splice(action.payload)
     },
     setLabelColor: (state, action: PayloadAction<{ color: string, index: number }>) => {
       const { color, index } = action.payload
@@ -161,6 +159,31 @@ const tasksSlice = createSlice({
       state.labels = action.payload
     },
     // label page actions
+    pushTaskAfterOther: (state, action: PayloadAction<{ taskToPush: TaskDTM, other: TaskDTM }>) => {
+      const { taskToPush, other } = action.payload
+      const updatedTask = {
+        ...taskToPush,
+        date: other.date.clone(),
+      }
+
+      state.tasks = state.tasks.filter((task) => task.id !== updatedTask.id)
+      const otherIndex = state.tasks.findIndex((task) => task.id === other.id)
+      state.tasks.splice(otherIndex + 1, 0, updatedTask)
+    },
+    pushTaskOnEmptyCell: (state, action: PayloadAction<{ taskToPush: TaskDTM, emptyCell: Moment }>) => {
+      const { taskToPush, emptyCell } = action.payload
+
+      state.tasks = state.tasks.map((task) => {
+        if (task.id === taskToPush.id) {
+          return {
+            ...task,
+            date: emptyCell.clone(), 
+          }
+        }
+
+        return task
+      })
+    },
     setTasks: (state, action: PayloadAction<TaskDTM[]>) => {
       state.tasks = action.payload
     },
