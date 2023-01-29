@@ -38,6 +38,38 @@ const tasksSlice = createSlice({
       state.editModal.selectedTask = action.payload
       state.editModal.isModalOpen = true
     },
+    setEditedTaskName: (state, action: PayloadAction<string>) => {
+      const selectedTask = state.tasks.find((task) => task.id === state.editModal.selectedTask)
+      if (!selectedTask) {
+        return
+      }
+
+      selectedTask.name = action.payload
+    },
+    addEditedTaskLabel: (state, action: PayloadAction<TaskLabelDTM>) => {
+      const selectedTask = state.tasks.find((task) => task.id === state.editModal.selectedTask)
+      if (!selectedTask) {
+        return
+      }
+
+      selectedTask.labels.push(action.payload)
+    },
+    removeEditedTaskLabel: (state, action: PayloadAction<string>) => {
+      const selectedTask = state.tasks.find((task) => task.id === state.editModal.selectedTask)
+      if (!selectedTask) {
+        return
+      }
+
+      selectedTask.labels = selectedTask.labels.filter((label) => label.id !== action.payload)
+    },
+    clearEditedTaskLabels: (state) => {
+      const selectedTask = state.tasks.find((task) => task.id === state.editModal.selectedTask)
+      if (!selectedTask) {
+        return
+      }
+
+      selectedTask.labels = []
+    },
     closeEditModal: (state) => {
       state.editModal.isModalOpen = false
       state.editModal.selectedTask = ""
@@ -86,21 +118,6 @@ const tasksSlice = createSlice({
     closeAddModal: (state) => {
       state.addModal.isModalOpen = false
       state.addModal.newTask = undefined
-    },
-    setEditModalTaskName: (state, action: PayloadAction<string>) => {
-      const selectedTask = state.tasks.find((task) => task.id === state.editModal.selectedTask)
-      if (!selectedTask) return
-
-      selectedTask.name = action.payload
-    },
-    setEditModalTaskLabels: (state, action: PayloadAction<TaskLabelDTM[]>) => {
-      const selectedTask = state.tasks.find((task) => task.id === state.editModal.selectedTask)
-      if (!selectedTask) return
-
-      selectedTask.labels = action.payload
-    },
-    setEditModalTask: (state, action: PayloadAction<TaskDTM>) => {
-      state.editModal.selectedTask = action.payload.id
     },
     setTasks: (state, action: PayloadAction<TaskDTM[]>) => {
       state.tasks = action.payload

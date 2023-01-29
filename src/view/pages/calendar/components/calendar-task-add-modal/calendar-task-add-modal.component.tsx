@@ -44,7 +44,7 @@ const CalendarTaskAddModal = ({
 
   return (
     <Modal title="New task">
-      <CalendarTaskAddModalLabel>Name *</CalendarTaskAddModalLabel>
+      <CalendarTaskAddModalLabel>Name</CalendarTaskAddModalLabel>
       <Input
         placeholder="go for a walk"
         value={task.name}

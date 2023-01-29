@@ -1,50 +1,52 @@
-import React from "react"
+import React, { useCallback } from "react"
 
 import { TaskDTM, TaskLabelDTM } from "models/dtm"
-import { Badge, Input, Modal } from "view/components"
+import { Input, Modal, TaskLabelsMultiSelect } from "view/components"
 
-import { CalendarTaskEditModalTitle } from "./calendar-task-edit-modal.styled"
+import { CalendarTaskEditModalReturnButton, CalendarTaskEditModalLabel } from "./calendar-task-edit-modal.styled"
 
 interface CalendarTaskEditModalProps {
   labels: TaskLabelDTM[],
   isOpen: boolean,
-  selectedTask?: TaskDTM,
-  closeModalFailure: () => void,
-  closeModalSuccess: () => void,
+  task?: TaskDTM,
+  setEditedTaskName: (name: string) => void,
+  addEditedTaskLabel: (label: TaskLabelDTM) => void,
+  removeEditedTaskLabel: (id: string) => void,
+  clearEditedTaskLabels: () => void,
+  closeModal: () => void,
 }
 
 const CalendarTaskEditModal = ({
-  selectedTask,
   labels,
   isOpen,
-  closeModalFailure,
-  closeModalSuccess,
+  task,
+  setEditedTaskName,
+  addEditedTaskLabel,
+  removeEditedTaskLabel,
+  clearEditedTaskLabels,
+  closeModal,
 }: CalendarTaskEditModalProps) => {
-  if (!isOpen || !selectedTask) {
+  const handleChangeName = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    setEditedTaskName(event.target.value)
+  }, [])
+
+  if (!isOpen || !task) {
     return null
   }
 
   return (
     <Modal title="Edit task">
-      <div>
-        <p>Name</p>
-        <Input placeholder="go for a walk" value={selectedTask.name} />
-        <div>
-          <h3>labels</h3>
-          <ul>
-            {labels.map((label) => (
-              <li key={label.id} style={{ display: "flex", flexDirection: "row", gap: "4px", alignItems: "center" }}>
-                <Badge color={label.color} />
-                <p>{label.description}</p>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
-      <div>
-        <button onClick={closeModalFailure}>cancel</button>
-        <button onClick={closeModalSuccess}>save</button>
-      </div>
+      <CalendarTaskEditModalLabel>Name</CalendarTaskEditModalLabel>
+      <Input placeholder="go for a walk" value={task.name} onChange={handleChangeName} />
+      <CalendarTaskEditModalLabel>Task Labels</CalendarTaskEditModalLabel>
+      <TaskLabelsMultiSelect
+        selected={task.labels}
+        options={labels}
+        onAddOption={addEditedTaskLabel}
+        onRemoveOption={removeEditedTaskLabel}
+        onClear={clearEditedTaskLabels}
+      />
+      <CalendarTaskEditModalReturnButton onClick={closeModal}>Return to calendar</CalendarTaskEditModalReturnButton>
     </Modal>
   )
 }

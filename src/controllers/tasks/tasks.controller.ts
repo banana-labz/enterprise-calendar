@@ -8,8 +8,28 @@ export class TasksController {
     store.dispatch(actions.tasks.removeTask(id))
   }
 
-  public editTask = (id: string) => {
+  public openEditModal = (id: string) => {
     store.dispatch(actions.tasks.openEditModal(id))
+  }
+
+  public setEditedTaskName = (name: string) => {
+    store.dispatch(actions.tasks.setEditedTaskName(name))
+  }
+
+  public addEditedTaskLabel = (taskLabel: TaskLabelDTM) => {
+    store.dispatch(actions.tasks.addEditedTaskLabel(taskLabel))
+  }
+
+  public removeEditedTaskLabel = (id: string) => {
+    store.dispatch(actions.tasks.removeEditedTaskLabel(id))
+  }
+
+  public clearEditedTaskLabels = () => {
+    store.dispatch(actions.tasks.clearEditedTaskLabels())
+  }
+
+  public closeEditModal = () => {
+    store.dispatch(actions.tasks.closeEditModal())
   }
 
   public openAddModal = (day: Moment) => {
@@ -37,7 +57,7 @@ export class TasksController {
   }
 
   public closeAddModalSuccess = () => {
-    const newTask = selectors.tasks.getAddModalTask(store.getState())
+    const newTask = selectors.tasks.getNewTask(store.getState())
     if (!newTask) return
 
     let task = { ...newTask }

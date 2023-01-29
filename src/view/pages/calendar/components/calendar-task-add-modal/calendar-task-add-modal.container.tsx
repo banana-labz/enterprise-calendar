@@ -9,7 +9,7 @@ import { CalendarTaskAddModalComponent } from "./calendar-task-add-modal.compone
 export const CalendarTaskAddModal = () => {
   const isAddModalOpen = useSelector(selectors.tasks.getIsAddModalOpen)
   const labels = useSelector(selectors.tasks.getLabels)
-  const newTask = useSelector(selectors.tasks.getAddModalTask)
+  const newTask = useSelector(selectors.tasks.getNewTask)
 
   return (
     <CalendarTaskAddModalComponent

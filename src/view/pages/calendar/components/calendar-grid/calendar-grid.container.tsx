@@ -21,7 +21,7 @@ export const CalendarGrid = () => {
       loadHolidays={controllers.calendar.loadHolidays}
       addTask={controllers.tasks.openAddModal}
       removeTask={controllers.tasks.removeTask}
-      editTask={controllers.tasks.editTask}
+      editTask={controllers.tasks.openEditModal}
     />
   )
 }
