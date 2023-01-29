@@ -137,6 +137,10 @@ const tasksSlice = createSlice({
       state.search.labelIds = []
     },
     // search filters actions
+    removeTask: (state, action: PayloadAction<string>) => {
+      state.tasks = state.tasks.filter((task) => task.id !== action.payload)
+    },
+    // remove modal actions
     addLabel: (state) => {
       state.labels.push({
         id: createUniqueId(),
@@ -154,9 +158,6 @@ const tasksSlice = createSlice({
     setLabelDescription: (state, action: PayloadAction<{ description: string, index: number }>) => {
       const { description, index } = action.payload
       state.labels[index].description = description
-    },
-    setLabels: (state, action: PayloadAction<TaskLabelDTM[]>) => {
-      state.labels = action.payload
     },
     // label page actions
     pushTaskAfterOther: (state, action: PayloadAction<{ taskToPush: TaskDTM, other: TaskDTM }>) => {
@@ -184,12 +185,14 @@ const tasksSlice = createSlice({
         return task
       })
     },
+    // drag and drop actions
     setTasks: (state, action: PayloadAction<TaskDTM[]>) => {
       state.tasks = action.payload
     },
-    removeTask: (state, action: PayloadAction<string>) => {
-      state.tasks = state.tasks.filter((task) => task.id !== action.payload)
+    setLabels: (state, action: PayloadAction<TaskLabelDTM[]>) => {
+      state.labels = action.payload
     },
+    // save/load actions
     reset: () => (initialState),
   },
 })

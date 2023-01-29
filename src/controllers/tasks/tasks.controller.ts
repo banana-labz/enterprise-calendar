@@ -1,7 +1,6 @@
 import moment, { Moment } from "moment"
 
-import { TaskDTM } from "models/dtm"
-
+import { TaskDTM, TaskLabelDTM } from "models/dtm"
 import { store, actions, selectors } from "store"
 
 export class TasksController {
@@ -127,5 +126,35 @@ export class TasksController {
       taskToPush,
       emptyCell,
     }))
+  }
+
+  public loadJSON = (json: any) => {
+    let resultTasks: TaskDTM[] = []
+    let resultLabels: TaskLabelDTM[] = []
+    try {
+      const { tasks, labels } = json
+      resultTasks = tasks.map((task: any) => ({
+        id: task.id,
+        date: moment(task.date),
+        name: task.name,
+        labelIds: task.labelIds,
+      }))
+      resultLabels = labels.map((label: any) => ({
+        id: label.id,
+        color: label.color,
+        description: label.description,
+      }))
+    } catch (error) {
+      console.error("Invalid JSON format\n", error)
+      return
+    }
+
+    if (resultLabels.length) {
+      store.dispatch(actions.tasks.setLabels(resultLabels))
+    }
+
+    if (resultTasks.length) {
+      store.dispatch(actions.tasks.setTasks(resultTasks))
+    }
   }
 }

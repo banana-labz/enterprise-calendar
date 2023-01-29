@@ -1,10 +1,13 @@
 import React from "react"
 
+import { controllers } from "controllers"
+
 import { LoadButtonComponent } from "./load-button.component"
 
 export const LoadButton = () => {
-
   return (
-    <LoadButtonComponent />
+    <LoadButtonComponent
+      loadJSON={controllers.tasks.loadJSON}
+    />
   )
 }

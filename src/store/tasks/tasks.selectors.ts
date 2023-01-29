@@ -84,6 +84,17 @@ const getLabels = createSelector(
   (state) => state.labels,
 )
 
+const getTasksAndLabelsAsString = createSelector(
+  getLocalState,
+  (state) => JSON.stringify({
+    tasks: state.tasks.map((task) => ({
+      ...task,
+      date: task.date.format()
+    })),
+    labels: state.labels,
+  })
+)
+
 export const tasksSelectors = {
   getSearchedText,
   getSearchedLabelIds,
@@ -94,4 +105,5 @@ export const tasksSelectors = {
   getEditedTask,
   getNewTask,
   getLabels,
+  getTasksAndLabelsAsString,
 }
