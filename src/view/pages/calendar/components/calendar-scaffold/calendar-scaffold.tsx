@@ -1,6 +1,6 @@
 import React from "react"
 
-import { CalendarLayout } from "./calendar-scaffold.styled"
+import { CalendarLayout, CalendarPageLayout } from "./calendar-scaffold.styled"
 
 interface CalendarScaffoldProps {
   calendarSearch: React.ReactNode,
@@ -17,11 +17,13 @@ export const CalendarScaffold = ({
   calendarTaskEditModal,
   calendarTaskAddModal,
 }: CalendarScaffoldProps) => (
-  <CalendarLayout>
+  <CalendarPageLayout>
     {calendarTaskEditModal}
     {calendarTaskAddModal}
     {calendarSearch}
-    {calendarMonthSelection}
-    {calendarGrid}
-  </CalendarLayout>
+    <CalendarLayout id="calendar">
+      {calendarMonthSelection}
+      {calendarGrid}
+    </CalendarLayout>
+  </CalendarPageLayout>
 )

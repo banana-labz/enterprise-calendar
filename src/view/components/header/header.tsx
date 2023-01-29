@@ -1,16 +1,19 @@
 import React from "react"
 
-import { LoadButton, SaveButton } from "./components"
+import { LoadButton, SaveButton, ScreenshotButton } from "./components"
 import { HeaderLayout, HeaderTitle, HeaderNavigation } from "./header.styled"
 
-export const Header = () => (
-  <HeaderLayout>
-    <HeaderTitle>
-      Calendar
-    </HeaderTitle>
-    <HeaderNavigation>
-      <LoadButton />
-      <SaveButton />
-    </HeaderNavigation>
-  </HeaderLayout>
-)
+export const Header = () => {
+  return (
+    <HeaderLayout>
+      <HeaderTitle>
+        Calendar
+      </HeaderTitle>
+      <HeaderNavigation>
+        <ScreenshotButton />
+        <LoadButton />
+        <SaveButton />
+      </HeaderNavigation>
+    </HeaderLayout>
+  )
+}
