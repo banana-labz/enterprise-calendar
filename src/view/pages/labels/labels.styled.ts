@@ -4,7 +4,7 @@ export const LabelsPageLayout = styled.div`
   height: calc(100vh - 64px);
   padding: ${props => props.theme.metrics.extraLarge}px;
 
-  background-color: ${props => props.theme.palette.lightGrey};
+  background-color: ${props => props.theme.palette.lighterGrey};
 `
 
 export const LabelsPageTitle = styled.h2`

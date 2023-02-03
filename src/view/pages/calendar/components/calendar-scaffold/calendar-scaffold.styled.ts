@@ -9,7 +9,7 @@ export const CalendarPageLayout = styled.main`
   padding: ${props => props.theme.metrics.large}px;
   padding-top: ${props => props.theme.metrics.large}px;
 
-  background-color: ${props => props.theme.palette.lightGrey};
+  background-color: ${props => props.theme.palette.lighterGrey};
 `
 
 export const CalendarLayout = styled.section`
@@ -17,5 +17,5 @@ export const CalendarLayout = styled.section`
   flex-direction: column;
   gap: ${props => props.theme.metrics.medium}px;
 
-  background-color: ${props => props.theme.palette.lightGrey};
+  background-color: ${props => props.theme.palette.lighterGrey};
 `

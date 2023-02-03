@@ -11,7 +11,11 @@ export const CalendarDayOfWeekLabel = styled.p`
   justify-content: center;
 `
 
-export const CalendarCell = styled.div`
+interface CalendarCellProps {
+  otherMonth?: boolean
+}
+
+export const CalendarCell = styled.div<CalendarCellProps>`
   display: flex;
   flex-direction: column;
   gap: ${props => props.theme.metrics.medium}px;
@@ -21,7 +25,9 @@ export const CalendarCell = styled.div`
 
   border-radius: ${props => props.theme.metrics.small}px;
 
-  background-color: ${props => props.theme.palette.white};
+  background-color: ${props => (
+    props.otherMonth ? props.theme.palette.lightGrey : props.theme.palette.white
+  )};
 `
 
 export const CalendarCellHeader = styled.div`
