@@ -25,9 +25,10 @@ export const CalendarCell = styled.div<CalendarCellProps>`
 
   border-radius: ${props => props.theme.metrics.small}px;
 
-  background-color: ${props => (
-    props.otherMonth ? props.theme.palette.lightGrey : props.theme.palette.white
-  )};
+  background-color: ${props =>
+    props.otherMonth
+      ? props.theme.palette.lightGrey
+      : props.theme.palette.white};
 `
 
 export const CalendarCellHeader = styled.div`

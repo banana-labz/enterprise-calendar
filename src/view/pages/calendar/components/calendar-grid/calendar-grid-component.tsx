@@ -82,8 +82,9 @@ const CalendarGrid = ({
   }
 
   const firstDayOfGrid = selectedMonth.clone().startOf("week")
-  const amountOfGridCells = selectedMonth.daysInMonth() + selectedMonth.diff(firstDayOfGrid, "days")
-  console.log(amountOfGridCells)
+  const amountOfGridCells =
+    selectedMonth.daysInMonth() + selectedMonth.diff(firstDayOfGrid, "days")
+
   return (
     <CalendarGridLayout>
       {moment.weekdays().map(weekday => (
@@ -92,9 +93,7 @@ const CalendarGrid = ({
       {Array(amountOfGridCells)
         .fill(null)
         .map((_, i) => {
-          const currentDay = firstDayOfGrid
-            .clone()
-            .add(i, "days")
+          const currentDay = firstDayOfGrid.clone().add(i, "days")
           const holiday = holidayList.find(
             holiday => Math.abs(holiday.date.diff(currentDay, "days")) < 1,
           )
@@ -111,7 +110,9 @@ const CalendarGrid = ({
             >
               <CalendarCellHeader>
                 <CalendarCellLabelContainer>
-                  <CalendarCellLabel>{currentDay.format("MMM D")}</CalendarCellLabel>
+                  <CalendarCellLabel>
+                    {currentDay.format("MMM D")}
+                  </CalendarCellLabel>
                   {!!holiday && <i className="fa-regular fa-star" />}
                 </CalendarCellLabelContainer>
                 <TransparentButton
