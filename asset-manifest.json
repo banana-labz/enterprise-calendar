@@ -4,7 +4,5 @@
     "index.html": "/calendar/index.html",
     "main.3d468138.js.map": "/calendar/static/js/main.3d468138.js.map"
   },
-  "entrypoints": [
-    "static/js/main.3d468138.js"
-  ]
+  "entrypoints": ["static/js/main.3d468138.js"]
 }
